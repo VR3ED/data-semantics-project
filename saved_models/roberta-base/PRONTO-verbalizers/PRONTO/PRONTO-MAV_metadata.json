@@ -1,0 +1,8 @@
+{
+  "model_name": "PRONTO-MAV",
+  "verbalizer_type": "MAV",
+  "prompt_style": "PRONTO",
+  "vocab_size": 50265,
+  "hidden_dim": 768,
+  "best_f1": 0.851063829787234
+}

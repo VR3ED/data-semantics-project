@@ -1,0 +1,6 @@
+{
+  "K": 32,
+  "prompt_style": "PRONTO",
+  "hidden_dim": 768,
+  "best_val_acc": 0.84375
+}

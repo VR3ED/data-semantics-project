@@ -1,0 +1,8 @@
+{
+  "model_name": "PRONTO-WS",
+  "verbalizer_type": "WS",
+  "prompt_style": "LMAOSI",
+  "vocab_size": 50265,
+  "hidden_dim": 768,
+  "best_f1": 0.7535211267605634
+}

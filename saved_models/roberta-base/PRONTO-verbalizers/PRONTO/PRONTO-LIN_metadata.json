@@ -1,0 +1,8 @@
+{
+  "model_name": "PRONTO-LIN",
+  "verbalizer_type": "LIN",
+  "prompt_style": "PRONTO",
+  "vocab_size": 50265,
+  "hidden_dim": 768,
+  "best_f1": 0.5123152709359606
+}
