@@ -2,5 +2,5 @@
   "K": 128,
   "prompt_style": "LMAOSI",
   "hidden_dim": 768,
-  "best_val_acc": 0.796875
+  "best_val_acc": 0.79296875
 }

@@ -4,5 +4,5 @@
   "prompt_style": "LMAOSI",
   "vocab_size": 50265,
   "hidden_dim": 768,
-  "best_f1": 0.08064516129032258
+  "best_f1": 0.714828897338403
 }

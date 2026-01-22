@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import chart from "../src/assets/promptFinalEval.png";
+
 
 const ResultsAnalysis = () => {
   const [activeTab, setActiveTab] = useState('kshot');
@@ -47,6 +49,34 @@ const ResultsAnalysis = () => {
         </CardHeader>
       </Card>
 
+
+      <h2 className="text-3xl font-bold text-gray-800" id="abstract">Abstract</h2>
+      
+      <div className="prose max-w-none">
+        <p>The project involves <strong>probing the subclass-of and instance-of </strong>ontological relations in masked language models. The ontology is used as a structured gold standard to construct negative and positive examples for the model.</p>
+        <br></br>
+        <p>The goal is therefore to evaluate whether and to what extent masked language models (such as BERT) encode ontological containment relations (is-a). This is done through probing experiments based on binary classification.</p>
+        <br></br>
+        <p><strong>Objective</strong> is replicate results of following papers:</p>
+        <ul className="list-disc list-inside">
+          <li>LMAOSI's paper: <a className="text-blue-600 hover:underline" href="https://arxiv.org/pdf/2302.06761">Language Model Analysis for Ontology Subsumption Inference</a></li>
+          <li>PRONTO's paper: <a className="text-blue-600 hover:underline" href="https://link.springer.com/chapter/10.1007/978-3-031-77850-6_13">PRONTO: Prompt-Based Detection of Semantic Containment Patterns in MLMs</a></li>
+        </ul>
+      </div>
+
+      <p><strong>Methods</strong>: We conduct comprehensive binary classification experiments on the OntoLAMA dataset (GO-ATOMIC-SI ontology) using both models. We evaluate: 
+      <ol className="list-decimal list-inside"> 
+        <li> format dataset with different prompt formats (PRONTO's declarative vs. LMAOSI's interrogative) that will both be used to run following experiments: </li>
+        <li> 0-shot verbalizers for both models and both prompt styles so that we have a baseline to evaluate or performance improvement or loss.  </li>
+        <li> k-shot learning approaches with varying training examples (4, 32, 128 shots). Running this experiment to verify LMAOSI's paper's expectation, wich is that we only need a few shots of training verbalizers before they actually start achieving good results</li>
+        <li> four automatic verbalizer architectures (VF, LIN, WS, MAV) from the PRONTO framework. Running this experiment to prove results from PRONTO's paper that we can tweak regular verbalizer's structure in order to achieve much better performance while keeping a restricted number of samples.</li>
+        <li> Bonus (authentic study from this work): By using both prompts styles (from both papers) to run previously descripted experiments we can then study how much the promt's formatting impacts final result. This means matching results of both experiments and evaluating how much the prompt difference impacts final results.</li>
+      </ol>
+      </p>
+
+      <br></br>
+      <h2 className="text-3xl font-bold text-gray-800" id="results">Results</h2>
+
       {/* Tab Navigation */}
       <div className="flex gap-2 border-b-2 border-gray-200">
         <button
@@ -57,7 +87,7 @@ const ResultsAnalysis = () => {
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          K-Shot Learning Progression
+          LMAOSI's experiment
         </button>
         <button
           onClick={() => setActiveTab('verbalizers')}
@@ -67,7 +97,7 @@ const ResultsAnalysis = () => {
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          Verbalizer Comparison
+          PRONTO's experiment
         </button>
         <button
           onClick={() => setActiveTab('best')}
@@ -77,7 +107,8 @@ const ResultsAnalysis = () => {
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          Top Performers (F1)
+          Personal experiment
+          (Prompt Comparaison)
         </button>
       </div>
 
@@ -112,6 +143,25 @@ const ResultsAnalysis = () => {
                 demonstrating strong ontological reasoning capabilities.
               </AlertDescription>
             </Alert>
+            
+            <Alert className="mt-4 bg-purple-50 border-purple-200">
+              <AlertDescription>
+                <strong>K-Shot Learning Effectiveness:</strong> Performance improves dramatically from 
+                0-shot (47-65% accuracy) to 128-shot (82.5-84.7%), confirming that ontological knowledge 
+                can be effectively elicited through few-shot prompting.  This progression demonstrates that 
+                MLMs possess latent ontological knowledge that can be unlocked with appropriate training examples.
+                It Also confirms LMAOSI's paper result as it's main thesis is that verbalizer only need a few
+                shots of training examples to perform well on ontology subsumption tasks.     
+
+                <Alert className="mt-4 bg-green-50 border-green-200">
+                  <AlertDescription>
+                    ✅ LMAOSI's  papers results successfully replicated. ✅
+                  </AlertDescription>
+                </Alert>         
+              </AlertDescription>
+            </Alert>
+            
+            
           </CardContent>
         </Card>
       )}
@@ -139,7 +189,7 @@ const ResultsAnalysis = () => {
               </BarChart>
             </ResponsiveContainer>
             <div className="grid grid-cols-2 gap-4 mt-4">
-              <Alert className="bg-green-50 border-green-200">
+              <Alert className="bg-blue-50 border-blue-200">
                 <AlertDescription>
                   <strong>✓ Best Performers:</strong><br/>
                   • PRONTO-MAV: Non-linear verbalizer<br/>
@@ -156,6 +206,22 @@ const ResultsAnalysis = () => {
                 </AlertDescription>
               </Alert>
             </div>
+            <Alert className="mt-4 bg-purple-50 border-purple-200">
+              <AlertDescription>
+                <strong>Verbalizer Impact:</strong> PRONTO-MAV (non-linear automatic verbalizer) and 
+                PRONTO-VF (verbalizer-free) consistently outperform traditional linear mappings, achieving 
+                ~81% accuracy. This suggests that complex, learned projections better capture ontological 
+                semantics than hand-crafted verbalizers. The poor performance of PRONTO-WS (~48-57%) highlights 
+                the importance of proper verbalizer design, further confirming hypotesies of PRONTO's paper.
+
+                <Alert className="mt-4 bg-green-50 border-green-200">
+                  <AlertDescription>
+                    ✅ PRONTO's papers results successfully replicated. ✅
+                  </AlertDescription>
+                </Alert>
+              </AlertDescription>
+            </Alert>
+            
           </CardContent>
         </Card>
       )}
@@ -164,31 +230,47 @@ const ResultsAnalysis = () => {
       {activeTab === 'best' && (
         <Card>
           <CardHeader>
-            <h2 className="text-2xl font-bold">🏆 Top Performing Methods (F1 Score)</h2>
-            <p className="text-gray-600">Highest F1 scores across all approaches</p>
+            <h2 className="text-2xl font-bold">🏆 Prompt comparison between papers</h2>
+            <p className="text-gray-600">Accuracy scores across all approaches</p>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart data={f1Data} layout="horizontal">
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" domain={[0.75, 0.85]} />
-                <YAxis dataKey="method" type="category" width={100} />
-                <Tooltip 
-                  formatter={(value) => (value * 100).toFixed(1) + '%'}
-                  contentStyle={{ backgroundColor: 'rgba(255,255,255,0.95)' }}
-                />
-                <Legend />
-                <Bar dataKey="bertF1" fill="#3b82f6" name="BERT F1" />
-                <Bar dataKey="robertaF1" fill="#ef4444" name="RoBERTa F1" />
-              </BarChart>
-            </ResponsiveContainer>
+            <img src={chart} alt="Prompt Comparison Chart" className="w-full h-auto mb-4" />
+
             <Alert className="mt-4 bg-purple-50 border-purple-200">
               <AlertDescription>
-                <strong>🎓 Winner:</strong> BERT + 128-Shot PRONTO achieves the highest F1 score of <strong>84.5%</strong>, 
-                closely followed by RoBERTa + MAV-PRONTO at <strong>83.5%</strong>. This demonstrates that both 
-                k-shot learning and sophisticated verbalizers are effective strategies for ontology probing.
+                <strong>Prompt Format Matters:</strong> The PRONTO prompt format ("&lt;C&gt; is a [MASK] of &lt;D&gt;") 
+                generally yields better results than LMAOSI's interrogative format, particularly in 0-shot 
+                settings (65% vs 47% for BERT). This gap narrows with more training examples, suggesting that 
+                prompt engineering is especially crucial in low-resource scenarios. 
+                Yet even if the gap narrows with more trained verbalizers is still visible, highlighting how 
+                crucial prompt engineering is when working with MLMs. 
+
+                <Alert className="mt-4 bg-green-50 border-green-200">
+                  <AlertDescription>
+                    ✅ Confirmed personal study about prompt engineering relevance ✅
+                  </AlertDescription>
+                </Alert> 
               </AlertDescription>
             </Alert>
+
+            <Alert className="mt-4 bg-purple-50 border-purple-200">
+              <AlertDescription>
+                <strong>Model Comparison:</strong> BERT slightly outperforms RoBERTa in most configurations, 
+                particularly with the PRONTO prompt, achieving a peak F1 of 84.5% (128-shot) compared to 
+                RoBERTa's 83.5% (MAV-PRONTO).  However, RoBERTa shows more consistent performance across 
+                different verbalizers. This validates the hypotesis in PRONTO's paper that even if Bert has 
+                slightly less parameters than RoBerta it can still hold up in terms of results as it's training 
+                method helps it pass those type of tasks.
+
+                <Alert className="mt-4 bg-green-50 border-green-200">
+                  <AlertDescription>
+                    ✅ Confirmed PRONTO's paper hypotesies on model relevance ✅
+                  </AlertDescription>
+                </Alert> 
+              </AlertDescription>
+            </Alert>
+
+
           </CardContent>
         </Card>
       )}
@@ -208,27 +290,7 @@ const ResultsAnalysis = () => {
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
             <h3 className="text-xl font-semibold mb-2">🔍 Key Findings:</h3>
             <ul className="space-y-2">
-              <li>
-                <strong>K-Shot Learning Effectiveness:</strong> Performance improves dramatically from 
-                0-shot (47-65% accuracy) to 128-shot (82.5-84.7%), confirming that ontological knowledge 
-                can be effectively elicited through few-shot prompting.
-              </li>
-              <li>
-                <strong>Verbalizer Impact:</strong> PRONTO-MAV (non-linear automatic verbalizer) and 
-                PRONTO-VF (verbalizer-free) consistently outperform traditional linear mappings, achieving 
-                ~81% accuracy. This suggests that complex, learned projections better capture ontological 
-                semantics than hand-crafted verbalizers.
-              </li>
-              <li>
-                <strong>Prompt Format Matters:</strong> The PRONTO prompt format ("&lt;C&gt; is a [MASK] of &lt;D&gt;") 
-                generally yields better results than LMAOSI's interrogative format, particularly in 0-shot 
-                settings (65% vs 47% for BERT).
-              </li>
-              <li>
-                <strong>Model Comparison:</strong> BERT slightly outperforms RoBERTa in most configurations, 
-                particularly with the PRONTO prompt, achieving a peak F1 of 84.5% (128-shot) compared to 
-                RoBERTa's 83.5% (MAV-PRONTO).
-              </li>
+              
             </ul>
           </div>
 
