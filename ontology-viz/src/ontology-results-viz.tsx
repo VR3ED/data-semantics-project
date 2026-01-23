@@ -289,19 +289,36 @@ const ResultsAnalysis = () => {
           
           <div className="bg-gray-50 p-4 rounded-lg mb-4">
             <h3 className="text-xl font-semibold mb-2">🔍 Key Findings:</h3>
+            <p> 
+              Having BERT+128 shot as our best model implies to us that BOHT:
+              <ol className="list-decimal list-inside">
+                <li>having few shots of training</li>
+                <li>having a well structured verbalize</li>
+              </ol>
+              are both crucial in acheiving good results; validating key arguements of both ananyzed papers.
+            </p>
             <ul className="space-y-2">
               
             </ul>
           </div>
 
           <p className="text-lg leading-relaxed">
-            <strong>In conclusion</strong>, both traditional k-shot verbalizers (LMAOSI approach) and 
-            automatic verbalizer learning (PRONTO approach) are viable strategies for ontology subsumption 
-            inference. The optimal choice depends on available resources: <em>k-shot learning requires 
-            labeled examples but achieves highest accuracy (84.7%)</em>, while <em>automatic verbalizers 
-            like PRONTO-MAV offer a good trade-off with 81-83% accuracy without extensive fine-tuning</em>. 
-            These results confirm that modern MLMs capture rich ontological structure, opening promising 
-            avenues for knowledge base completion and semantic reasoning tasks.
+            <p><strong>In conclusion</strong>, both traditional k-shot verbalizers (LMAOSI approach) and automatic verbalizer learning (PRONTO approach) are viable strategies for ontology subsumption inference. The optimal choice depends on available resources:</p>
+            <ul className="list-disc list-inside">
+            <li><strong>K-shot learning</strong> requires labeled examples but achieves great accuracy (84.7%), making it ideal when annotation resources are available</li>
+            <li><strong>Automatic verbalizers</strong> like PRONTO-MAV offer a good trade-off with 81-83% accuracy without extensive fine-tuning, suitable for scenarios with limited labeled data, as this study started with a dataset full of ONLY POSITIVE examples (like they had in the original PRONTO paper).</li>
+            <li><strong>Verbalizer-free approaches</strong> (PRONTO-VF) provide consistent results (~81%) and require minimal design effort</li>
+            </ul>
+            <br></br>
+            <p>These results confirm that modern MLMs capture rich ontological structure beyond mere surface patterns, opening promising avenues for:</p>
+            <ul className="list-disc list-inside">
+            <li>Knowledge base completion</li>
+            <li>Semantic reasoning tasks  </li>
+            <li>Automated ontology enrichment</li>
+            <li>Cross-lingual knowledge transfer</li>
+            </ul>
+            <p>The success of these probing methods validates the hypothesis that pre-training on large text corpora enables models to internalize hierarchical conceptual relationships, making them valuable tools for knowledge-intensive NLP applications.</p>
+
           </p>
         </CardContent>
       </Card>
