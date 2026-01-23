@@ -292,8 +292,8 @@ const ResultsAnalysis = () => {
             <p> 
               Having BERT+128 shot as our best model implies to us that BOHT:
               <ol className="list-decimal list-inside">
-                <li>having few shots of training</li>
-                <li>having a well structured verbalize</li>
+                <li>only needing few shots of training</li>
+                <li>having a well structured verbalizer</li>
               </ol>
               are both crucial in acheiving good results; validating key arguements of both ananyzed papers.
             </p>
