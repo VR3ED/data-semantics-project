@@ -4,5 +4,5 @@
   "prompt_style": "PRONTO",
   "vocab_size": 30522,
   "hidden_dim": 768,
-  "best_f1": 0.8438818565400844
+  "best_f1": 0.8487394957983193
 }
